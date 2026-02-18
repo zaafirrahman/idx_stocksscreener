@@ -73,4 +73,4 @@ Scales into the position once the movement proves valid and momentum continues.
 
 ## ⚠️ Status
 
-This project is currently under development and testing
+This project is currently under development and testing.
