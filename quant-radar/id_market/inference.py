@@ -161,6 +161,14 @@ def run_inference(
         if filtered > 0:
             print(f"  Filtered {filtered} tickers (volatility out of range)")
 
+    # Filter: exclude saham yang sudah ARA 3+ hari berturut (ret_1d > 8% consecutive)
+    # dan filter minimum volume
+    if "ret_1d" in results.columns:
+        # Kalau ret_1d > 9% kemungkinan ARA, butuh konfirmasi volume
+        results = results[
+            ~((results["ret_1d"] > 9.0) & (results["vol_ratio"] < 1.5))
+        ]
+
     # Sort by probability descending
     results = results.sort_values("proba_up", ascending=False).reset_index(drop=True)
     results["rank"] = results.index + 1
